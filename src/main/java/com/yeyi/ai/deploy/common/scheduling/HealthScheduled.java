@@ -78,7 +78,7 @@ public class HealthScheduled {
         String value = mapper.writeValueAsString(deployHostHeartBeatVo);
 
         HttpEntity<String> requestEntity = new HttpEntity<String>(value, headers);
-        ResponseEntity<String> stringResponseEntity = restTemplate.postForEntity("http://localhost:8899/receiveServiceHeartBeat", requestEntity, String.class);
+        ResponseEntity<String> stringResponseEntity = restTemplate.postForEntity("http://212.64.65.159:8899/receiveServiceHeartBeat", requestEntity, String.class);
         String body = stringResponseEntity.getBody();
         System.out.println(body);
     }
