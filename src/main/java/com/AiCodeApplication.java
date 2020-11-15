@@ -19,7 +19,7 @@ public class AiCodeApplication {
 
     @RequestMapping("/hello")
     public String hello() {
-        return "hello word asd";
+        return "hello word asd1";
     }
 
     @Bean
