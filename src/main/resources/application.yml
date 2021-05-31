@@ -1,0 +1,7 @@
+test: 11
+
+ai:
+  deploy:
+    client:
+      token: 123
+      localhost: http://192.168.131.242:8899

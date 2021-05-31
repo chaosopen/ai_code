@@ -1,5 +1,6 @@
 package com;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -17,9 +18,14 @@ public class AiCodeApplication {
         SpringApplication.run(AiCodeApplication.class, args);
     }
 
+    @Value("${test}")
+    private String test;
+
+
     @RequestMapping("/hello")
     public String hello() {
-        return "hello word asd1";
+
+        return test;
     }
 
     @Bean

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yeyi.ai.deploy.common.pojo.DeployHostHeartBeatVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -22,10 +23,13 @@ import java.util.List;
 @Configuration
 public class HealthScheduled {
 
+    @Value("${ai.deploy.client.localhost:}")
+    private String localhost;
+
     @Autowired
     private RestTemplate restTemplate;
 
-    @Scheduled(cron = "0/2 * * * * ?")
+    @Scheduled(cron = "0/10 * * * * ?")
     public void test() throws JsonProcessingException {
         DeployHostHeartBeatVo deployHostHeartBeatVo = DeployHostHeartBeatVo.builder().build();
         MemoryMXBean mxb = ManagementFactory.getMemoryMXBean();
@@ -78,7 +82,7 @@ public class HealthScheduled {
         String value = mapper.writeValueAsString(deployHostHeartBeatVo);
 
         HttpEntity<String> requestEntity = new HttpEntity<String>(value, headers);
-        ResponseEntity<String> stringResponseEntity = restTemplate.postForEntity("http://212.64.65.159:8899/receiveServiceHeartBeat", requestEntity, String.class);
+        ResponseEntity<String> stringResponseEntity = restTemplate.postForEntity(localhost + "/receiveServiceHeartBeat", requestEntity, String.class);
         String body = stringResponseEntity.getBody();
         System.out.println(body);
     }
